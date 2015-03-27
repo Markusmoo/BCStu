@@ -2,6 +2,12 @@ package ca.tonsaker.bcstu;
 
 import com.google.gson.annotations.Expose;
 
+/**
+ * Student.java is a data type for JSON Data.
+ * 
+ * @author Markus Tonsaker
+ *
+ */
 public class Student {
 	
 	@Expose public Result[] results;
