@@ -15,7 +15,7 @@ This project is only 80% complete as it is missing:
 This application uses the following libraries:
 <ul>
   <li><a href="https://code.google.com/p/google-gson/">gson</a> - For parsing JSON data types.</li>
-  <li><a href="http://www.thebuzzmedia.com/software/imgscalr-java-image-scaling-library/">imgscalr - For scaling profile pictures.
+  <li><a href="http://www.thebuzzmedia.com/software/imgscalr-java-image-scaling-library/">imgscalr</a> - For scaling profile pictures.
 </ul>
 
 BCStu was created and developed by Markus Tonsaker.
