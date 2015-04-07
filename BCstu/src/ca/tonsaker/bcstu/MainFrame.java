@@ -91,7 +91,6 @@ public class MainFrame extends JFrame implements ActionListener, ListSelectionLi
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
 		
-		
 		//Adds all the menu bars
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -125,15 +124,14 @@ public class MainFrame extends JFrame implements ActionListener, ListSelectionLi
 		mntm_RemoveAllStudents = new JMenuItem("Remove All Students");
 		mntm_RemoveAllStudents.addActionListener(this);
 		mn_Students.add(mntm_RemoveAllStudents);
-
 		
 		//Creates the content pane
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.add(contentPane);
 		setContentPane(contentPane);
 		SpringLayout sl_contentPane = new SpringLayout();
 		contentPane.setLayout(sl_contentPane);
-		
 		
 		//Adds Labels
 		JLabel lbl_classroom = new JLabel("Classroom:");
@@ -143,13 +141,13 @@ public class MainFrame extends JFrame implements ActionListener, ListSelectionLi
 		sl_contentPane.putConstraint(SpringLayout.EAST, lbl_classroom, 150, SpringLayout.WEST, contentPane);
 		contentPane.add(lbl_classroom);
 		
-		
 		//Adds Buttons
 		btn_addStu = new JButton("Add Random Student");
 		sl_contentPane.putConstraint(SpringLayout.WEST, btn_addStu, 5, SpringLayout.WEST, contentPane);
 		btn_addStu.addActionListener(this);
 		contentPane.add(btn_addStu);
 		
+		//Removes the student
 		btn_remStu = new JButton("Remove Student");
 		sl_contentPane.putConstraint(SpringLayout.NORTH, btn_remStu, -50, SpringLayout.SOUTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.WEST, btn_remStu, 5, SpringLayout.WEST, contentPane);
@@ -158,16 +156,6 @@ public class MainFrame extends JFrame implements ActionListener, ListSelectionLi
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, btn_addStu, -6, SpringLayout.NORTH, btn_remStu);
 		btn_remStu.addActionListener(this);
 		contentPane.add(btn_remStu);
-		
-		btn_stuInfo = new JButton("View Student Info");
-		btn_stuInfo.setEnabled(false);
-		btn_stuInfo.addActionListener(this);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, btn_stuInfo, -30, SpringLayout.NORTH, pic);
-		sl_contentPane.putConstraint(SpringLayout.WEST, btn_stuInfo, 5, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, btn_stuInfo, -6, SpringLayout.NORTH, pic);
-		sl_contentPane.putConstraint(SpringLayout.EAST, btn_stuInfo, -5, SpringLayout.WEST, pane);
-		contentPane.add(btn_stuInfo);
-		
 		
 		//Creates the JList containing students
 		list = new JList<User>(students);
@@ -178,10 +166,8 @@ public class MainFrame extends JFrame implements ActionListener, ListSelectionLi
 		sl_contentPane.putConstraint(SpringLayout.WEST, pane, 0, SpringLayout.EAST, lbl_classroom);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, pane, -10, SpringLayout.SOUTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.EAST, pane, -10, SpringLayout.EAST, contentPane);
-		//contentPane.add(list);
 		list.addListSelectionListener(this);
 		contentPane.add(pane);
-		
 		
 		//Creates the Profile picture.
 		pic = new JProfilePicture();
@@ -190,6 +176,16 @@ public class MainFrame extends JFrame implements ActionListener, ListSelectionLi
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, pic, -6, SpringLayout.NORTH, btn_addStu);
 		sl_contentPane.putConstraint(SpringLayout.EAST, pic, -5, SpringLayout.WEST, pane);
 		contentPane.add(pic);
+		
+		//View student info
+		btn_stuInfo = new JButton("View Student Info");
+		btn_stuInfo.setEnabled(false);
+		btn_stuInfo.addActionListener(this);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, btn_stuInfo, -30, SpringLayout.NORTH, pic);
+		sl_contentPane.putConstraint(SpringLayout.WEST, btn_stuInfo, 5, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, btn_stuInfo, -6, SpringLayout.NORTH, pic);
+		sl_contentPane.putConstraint(SpringLayout.EAST, btn_stuInfo, -5, SpringLayout.WEST, pane);
+		contentPane.add(btn_stuInfo);
 	}
 
 	@Override
@@ -276,8 +272,10 @@ public class MainFrame extends JFrame implements ActionListener, ListSelectionLi
 			
 			//For each Result (Result.java is a student, Student.java contains an array of results) add said result to the list.
 			for(Result r : e.results){
-				System.out.println("Added: "+r.user.name.first+" "+r.user.name.last);
+				r.user.name.first = Character.toString(r.user.name.first.charAt(0)).toUpperCase() + r.user.name.first.substring(1, r.user.name.first.length());
+				r.user.name.last = Character.toString(r.user.name.last.charAt(0)).toUpperCase() + r.user.name.last.substring(1, r.user.name.last.length());
 				students.addElement(r.user);
+				System.out.println("Added: "+r.user.name.first+" "+r.user.name.last);
 			}
 			
 			//Select the last added Student and scroll down.
