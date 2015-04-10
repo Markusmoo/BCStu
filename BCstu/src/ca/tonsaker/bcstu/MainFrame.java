@@ -20,6 +20,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -88,6 +89,13 @@ public class MainFrame extends JFrame implements ActionListener, ListSelectionLi
 	 * Create the frame.
 	 */
 	public MainFrame() {
+		
+		try { 
+		    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
 		
@@ -179,7 +187,7 @@ public class MainFrame extends JFrame implements ActionListener, ListSelectionLi
 		
 		//View student info
 		btn_stuInfo = new JButton("View Student Info");
-		btn_stuInfo.setEnabled(false);
+		btn_stuInfo.setEnabled(true);
 		btn_stuInfo.addActionListener(this);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, btn_stuInfo, -30, SpringLayout.NORTH, pic);
 		sl_contentPane.putConstraint(SpringLayout.WEST, btn_stuInfo, 5, SpringLayout.WEST, contentPane);
@@ -212,7 +220,13 @@ public class MainFrame extends JFrame implements ActionListener, ListSelectionLi
 			this.removeSelectedStudent();
 		}
 		
-		
+		if(src == this.btn_stuInfo){
+			try {
+				new JStudentInfo(this.students.get(list.getSelectedIndex()));
+			} catch (MalformedURLException e1) {
+				e1.printStackTrace();
+			}
+		}
 		
 	}
 	
@@ -274,6 +288,8 @@ public class MainFrame extends JFrame implements ActionListener, ListSelectionLi
 			for(Result r : e.results){
 				r.user.name.first = Character.toString(r.user.name.first.charAt(0)).toUpperCase() + r.user.name.first.substring(1, r.user.name.first.length());
 				r.user.name.last = Character.toString(r.user.name.last.charAt(0)).toUpperCase() + r.user.name.last.substring(1, r.user.name.last.length());
+				r.user.location.city = Character.toString(r.user.location.city.charAt(0)).toUpperCase() + r.user.location.city.substring(1, r.user.location.city.length());
+				r.user.location.state = Character.toString(r.user.location.state.charAt(0)).toUpperCase() + r.user.location.state.substring(1, r.user.location.state.length());
 				students.addElement(r.user);
 				System.out.println("Added: "+r.user.name.first+" "+r.user.name.last);
 			}
