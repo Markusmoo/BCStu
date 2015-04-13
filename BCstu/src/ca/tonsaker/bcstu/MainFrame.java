@@ -98,6 +98,7 @@ public class MainFrame extends JFrame implements ActionListener, ListSelectionLi
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
+		this.setTitle("BCstu");
 		
 		//Adds all the menu bars
 		JMenuBar menuBar = new JMenuBar();

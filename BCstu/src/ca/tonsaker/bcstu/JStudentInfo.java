@@ -39,6 +39,8 @@ public class JStudentInfo extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		this.setResizable(false);
+		this.setAlwaysOnTop(true);
 		
 		JProfilePicture profilePic = new JProfilePicture();
 		profilePic.setBounds(62, 29, 60, 60);
